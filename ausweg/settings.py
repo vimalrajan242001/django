@@ -128,3 +128,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'web-Home'
 LOGIN_URL = 'login'
+
+
+MEDIA_URL = '/images/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'website/Static/Aus-web/images')

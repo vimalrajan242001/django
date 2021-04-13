@@ -18,6 +18,12 @@ h6 {
   padding: 10px;
 }
 
+@media (min-width: 1000px) {
+  .img-size {
+    height: 900px;
+    width: 1000px;
+  }
+}
 .thumbnail {
   width: 100%;
   height: 200px;
@@ -107,4 +113,16 @@ h6 {
 .hocon {
   font-size: 20px;
   line-height: 50px;
+}
+
+.row {
+  margin-bottom: 4%;
+}
+
+.content-section{
+  margin-top: 4%;
+}
+
+.titlo{
+  margin-left: 40%;
 }
