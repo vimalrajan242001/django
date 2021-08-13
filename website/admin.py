@@ -12,6 +12,6 @@ admin.site.register(ShippingAddress)
 
 #for admin portal headings
 
-admin.site.site_header = "Ausweg Automations"
-admin.site.site_title = "Ausweg Automations Admin Portal"
-admin.site.index_title = "Welcome to Ausweg Automations"
+admin.site.site_header = "Ecommerce"
+admin.site.site_title = "Ecommerce Admin Portal"
+admin.site.index_title = "Welcome to Ecommerce"

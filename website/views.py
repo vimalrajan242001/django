@@ -3,7 +3,7 @@ from .models import *
 from django.http import JsonResponse
 import datetime
 import json
-from .utils import cookieCart, cartData
+from .utils import cartData
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ def store(request):
     items = data['items']
 
     products = Product.objects.all()
-    context = {'products': products, 'cartItems': cartItems}
+    context = {'products': products, 'cartItems': cartItems, 'title': 'Store'}
     return render(request, 'Ausweg-web/store.html', context)
 
 
@@ -31,7 +31,7 @@ def cart(request):
     order = data['order']
     items = data['items']
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    context = {'items': items, 'order': order, 'cartItems': cartItems, 'title': 'Cart'}
     return render(request, 'Ausweg-web/cart.html', context)
 
 
@@ -42,7 +42,7 @@ def checkout(request):
     order = data['order']
     items = data['items']
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    context = {'items': items, 'order': order, 'cartItems': cartItems, 'title': 'Checkout'}
     return render(request, 'Ausweg-web/checkout.html', context)
 
 
@@ -72,32 +72,3 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
-
-
-def processOrder(request):
-    transaction_id = datetime.datetime.now().timestamp()
-    data = json.loads(request.body)
-
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
-    else:
-        customer, order = guestOrder(request, data)
-
-    total = float(data['form']['total'])
-    order.transaction_id = transaction_id
-
-    if total == order.get_cart_total:
-        order.complete = True
-    order.save()
-
-    if order.shipping == True:
-        ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shipping']['address'],
-            city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zipcode=data['shipping']['zipcode'],
-        )
